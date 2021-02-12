@@ -1,0 +1,37 @@
+from tkinter import * 
+from tkinter import filedialog
+import hashlib
+
+
+root=Tk()
+
+root.geometry("600x400")
+root.resizable(0,0)
+
+root.title("MD5 Hash Generator")
+img = PhotoImage(file="hash.png")
+Photo=Label(image=img)
+Photo.pack()
+
+root.wm_iconbitmap("hash-icon.ico")
+
+def browseFiles(): 
+    filename = filedialog.askopenfilename()  
+    with open(filename,"rb") as f:
+        bytes = f.read() 
+        readable_hash = hashlib.md5(bytes).hexdigest()
+    label_file_explorer.configure(text="MD5 Hash Code: \n"+readable_hash) 
+ 
+       
+       
+
+Label(root, text = 'MD5 Hash Code Generate', font = 'arial 20').place(x= 140 , y = 10)
+Label(root, text = 'Select file:', font = 'arial 12').place(x= 260 , y = 60)
+label_file_explorer = Label(root,text = "",font = 'arial 15 bold')
+Button(root,text = 'Browse',fg='white' ,font = 'ariel 15 bold',bg = 'green', padx = 40, pady=10,command=browseFiles).place(x=220,y=100)
+Button(root,text="Close",font = 'arial 10 bold' ,bg="red",fg="white",command=quit).place(x=270,y=340)
+
+
+label_file_explorer.place(x=125,y=220)
+
+root.mainloop()
